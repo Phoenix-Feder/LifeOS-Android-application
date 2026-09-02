@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    // No id("org.jetbrains.kotlin.android") — built into AGP 9.0+.
+    id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
 }
@@ -20,7 +20,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
@@ -32,13 +35,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    // No kotlinOptions block — jvmTarget is set below via the Kotlin 2.0+
-    // top-level `kotlin { compilerOptions { ... } }` DSL instead.
 }
 
 kotlin {
     compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        jvmTarget.set(
+            org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        )
     }
 }
 
@@ -63,11 +66,12 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
 
-    // DataStore (settings)
+    // DataStore
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
-    // WorkManager (deferrable background work, e.g. daily review sweep)
+    // WorkManager
     implementation("androidx.work:work-runtime-ktx:2.9.1")
 
+    // Compose tooling
     debugImplementation("androidx.compose.ui:ui-tooling")
 }
